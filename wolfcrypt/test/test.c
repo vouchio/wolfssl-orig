@@ -6,7 +6,7 @@
  *
  * wolfSSL is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * wolfSSL is distributed in the hope that it will be useful,
@@ -16780,6 +16780,10 @@ WOLFSSL_TEST_SUBROUTINE int dh_test(void)
             ERROR_OUT(-8133, done);
         bytes = (word32)XFREAD(tmp, 1, DH_TEST_TMP_SIZE, file);
         XFCLOSE(file);
+
+        /* for HAVE_WOLF_BIGINT prevent leak */
+        wc_FreeDhKey(key);
+        (void)wc_InitDhKey_ex(key, HEAP_HINT, devId);
 
         idx = 0;
         XMEMSET(tmp2, 0, DH_TEST_TMP_SIZE);
