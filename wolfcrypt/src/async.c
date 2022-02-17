@@ -83,15 +83,10 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
     }
     testDev = &asyncDev->test;
 
-    printf("********************************\n"
-            "%s: Async type: %d\n"
-            "*******************************\n", __PRETTY_FUNCTION__, testDev->type);
-
     switch (testDev->type) {
 #ifdef HAVE_ECC
         case ASYNC_TEST_ECC_MAKE:
         {
-            printf("ASYNC_TEST_ECC_MAKE\n");
             ret = wc_ecc_make_key_ex(
                 (WC_RNG*)testDev->eccMake.rng,
                 testDev->eccMake.size,
@@ -103,7 +98,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
     #ifdef HAVE_ECC_SIGN
         case ASYNC_TEST_ECC_SIGN:
         {
-            printf("ASYNC_TEST_ECC_SIGN\n");
             ret = wc_ecc_sign_hash_ex(
                 testDev->eccSign.in,
                 testDev->eccSign.inSz,
@@ -118,7 +112,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
     #ifdef HAVE_ECC_VERIFY
         case ASYNC_TEST_ECC_VERIFY:
         {
-            printf("ASYNC_TEST_ECC_VERIFY\n");
             ret = wc_ecc_verify_hash_ex(
                 (mp_int*)testDev->eccVerify.r,
                 (mp_int*)testDev->eccVerify.s,
@@ -133,7 +126,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
     #ifdef HAVE_ECC_DHE
         case ASYNC_TEST_ECC_SHARED_SEC:
         {
-            printf("ASYNC_TEST_ECC_SHARED_SEC\n");
             ret = wc_ecc_shared_secret_gen(
                 (ecc_key*)testDev->eccSharedSec.private_key,
                 (ecc_point*)testDev->eccSharedSec.public_point,
@@ -148,7 +140,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
     #ifdef WOLFSSL_KEY_GEN
         case ASYNC_TEST_RSA_MAKE:
         {
-            printf("ASYNC_TEST_RSA_MAKE\n");
             ret = wc_MakeRsaKey(
                 (RsaKey*)testDev->rsaMake.key,
                 testDev->rsaMake.size,
@@ -160,7 +151,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
     #endif /* WOLFSSL_KEY_GEN */
         case ASYNC_TEST_RSA_FUNC:
         {
-            printf("ASYNC_TEST_RSA_FUNC\n");
             ret = wc_RsaFunction(
                 testDev->rsaFunc.in,
                 testDev->rsaFunc.inSz,
@@ -176,7 +166,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
 #ifndef NO_DH
         case ASYNC_TEST_DH_AGREE:
         {
-            printf("ASYNC_TEST_DH_AGREE\n");
             ret = wc_DhAgree(
                 (DhKey*)testDev->dhAgree.key,
                 testDev->dhAgree.agree,
@@ -190,7 +179,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
         }
         case ASYNC_TEST_DH_GEN:
         {
-            printf("ASYNC_TEST_DH_GEN\n");
             ret = wc_DhGenerateKeyPair(
                 (DhKey*)testDev->dhGen.key,
                 (WC_RNG*)testDev->dhGen.rng,
@@ -205,7 +193,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
 #ifndef NO_AES
         case ASYNC_TEST_AES_CBC_ENCRYPT:
         {
-            printf("ASYNC_TEST_AES_CBC_ENCRYPT\n");
             ret = wc_AesCbcEncrypt(
                 (Aes*)testDev->aes.aes,
                 testDev->aes.out,
@@ -217,7 +204,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
     #ifdef HAVE_AES_DECRYPT
         case ASYNC_TEST_AES_CBC_DECRYPT:
         {
-            printf("ASYNC_TEST_AES_CBC_DECRYPT\n");
             ret = wc_AesCbcDecrypt(
                 (Aes*)testDev->aes.aes,
                 testDev->aes.out,
@@ -231,7 +217,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
     #ifdef HAVE_AESGCM
         case ASYNC_TEST_AES_GCM_ENCRYPT:
         {
-            printf("ASYNC_TEST_AES_GCM_ENCRYPT\n");
             ret = wc_AesGcmEncrypt(
                 (Aes*)testDev->aes.aes,
                 testDev->aes.out,
@@ -249,7 +234,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
         #ifdef HAVE_AES_DECRYPT
         case ASYNC_TEST_AES_GCM_DECRYPT:
         {
-            printf("ASYNC_TEST_AES_GCM_DECRYPT\n");
             ret = wc_AesGcmDecrypt(
                 (Aes*)testDev->aes.aes,
                 testDev->aes.out,
@@ -270,7 +254,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
 #ifndef NO_DES3
         case ASYNC_TEST_DES3_CBC_ENCRYPT:
         {
-            printf("ASYNC_TEST_DES3_CBC_ENCRYPT\n");
             ret = wc_Des3_CbcEncrypt(
                 (Des3*)testDev->des.des,
                 testDev->des.out,
@@ -281,7 +264,6 @@ static int wolfAsync_crypt_test(WC_ASYNC_DEV* asyncDev)
         }
         case ASYNC_TEST_DES3_CBC_DECRYPT:
         {
-            printf("ASYNC_TEST_DES3_CBC_DECRYPT\n");
             ret = wc_Des3_CbcDecrypt(
                 (Des3*)testDev->des.des,
                 testDev->des.out,
