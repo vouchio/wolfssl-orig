@@ -21010,27 +21010,18 @@ static int SetEccPublicKey(byte* output, ecc_key* key, int outLen,
 
         /* check for buffer overflow */
         if (output != NULL &&
-                          idx + algoSz + bitStringSz + pubSz > (word32)outLen) {
+                curveSz + algoSz + bitStringSz + idx + pubSz > (word32)outLen) {
             return BUFFER_E;
         }
-        
+
         idx = SetSequence(pubSz + curveSz + bitStringSz + algoSz, output);
         /* algo */
-        if (output)
-            XMEMCPY(output + idx, algo, algoSz);
-        idx += algoSz;
-        /* curve */
-        if (output)
-            XMEMCPY(output + idx, curve, curveSz);
-        idx += curveSz;
-        /* bit string */
-        if (output)
             XMEMCPY(output + idx, bitString, bitStringSz);
         idx += bitStringSz;
     }
 
     /* pub */
-    if (output) {    
+    if (output) {
         PRIVATE_KEY_UNLOCK();
         ret = wc_ecc_export_x963(key, output + idx, &pubSz);
         PRIVATE_KEY_LOCK();
