@@ -21016,6 +21016,15 @@ static int SetEccPublicKey(byte* output, ecc_key* key, int outLen,
 
         idx = SetSequence(pubSz + curveSz + bitStringSz + algoSz, output);
         /* algo */
+        if (output)
+            XMEMCPY(output + idx, algo, algoSz);
+        idx += algoSz;
+        /* curve */
+        if (output)
+            XMEMCPY(output + idx, curve, curveSz);
+        idx += curveSz;
+        /* bit string */
+        if (output)
             XMEMCPY(output + idx, bitString, bitStringSz);
         idx += bitStringSz;
     }
